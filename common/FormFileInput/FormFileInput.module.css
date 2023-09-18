@@ -1,0 +1,27 @@
+.wrapper {
+  @apply p-4;
+  @apply flex flex-col items-center;
+  @apply gap-2;
+  @apply bg-transparent text-primary;
+  @apply border border-primary;
+  @apply rounded-lg;
+  @apply hover:bg-primary-transparent hover:text-secondary;
+  @apply cursor-pointer;
+}
+
+.icon {
+  @apply w-6 h-6;
+}
+
+.fileInput {
+  @apply hidden;
+}
+
+.files {
+  @apply p-4 mt-4 bg-transparent overflow-hidden text-ellipsis;
+  @apply flex flex-col space-y-1;
+}
+
+.fileItem {
+  @apply text-primary whitespace-nowrap;
+}

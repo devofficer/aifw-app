@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import Description from "@/components/Description";
+import FormView from "@/components/FormView";
 import Banner from "@/components/Banner";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +17,7 @@ export default async function Index() {
     <>
       <div className="container">
         <Banner />
-        <Description />
+        <FormView />
       </div>
     </>
   );

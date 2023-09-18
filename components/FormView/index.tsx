@@ -1,13 +1,14 @@
 import Section from "@/common/Section";
-import styles from "./Description.module.css";
+import styles from "./FormView.module.css";
 import FormTextField from "@/common/FormTextField";
 import FormButton from "@/common/FormButton";
 import DropDown from "@/common/DropDown";
 import { models } from "@/config/models";
+import FormFileInput from "@/common/FormFileInput";
 
 export const dynamic = "force-dynamic";
 
-const Description = () => {
+const FormView = () => {
   return (
     <Section>
       <div className={styles.wrapper}>
@@ -28,6 +29,7 @@ const Description = () => {
           type="text"
           placeholder=""
         />
+        <FormFileInput />
         <div className={styles.submit}>
           <FormButton text="Submit" />
         </div>
@@ -36,4 +38,4 @@ const Description = () => {
   );
 };
 
-export default Description;
+export default FormView;
