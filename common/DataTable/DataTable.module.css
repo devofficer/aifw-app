@@ -1,0 +1,209 @@
+.container {
+  @apply px-4;
+  @apply sm:px-6;
+  @apply lg:px-8;
+}
+
+.headerWrapper {
+  @apply sm:flex-auto;
+}
+
+.header {
+  @apply sm:flex;
+  @apply sm:items-center;
+}
+
+.headerTitle {
+  @apply text-base;
+  @apply font-semibold;
+  @apply leading-6;
+  @apply text-gray-900;
+}
+
+.headerDescription {
+  @apply mt-2;
+  @apply text-sm;
+  @apply text-gray-700;
+}
+
+.addButtonWrapper {
+  @apply mt-4;
+  @apply sm:ml-16;
+  @apply sm:mt-0;
+  @apply sm:flex-none;
+}
+
+.addButton {
+  @apply block;
+  @apply rounded-md;
+  @apply bg-indigo-600;
+  @apply px-3;
+  @apply py-1.5;
+  @apply text-center;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply leading-6;
+  @apply text-white;
+  @apply shadow-sm;
+  @apply hover:bg-indigo-500;
+  @apply focus:outline-none;
+  @apply focus:ring-2;
+  @apply focus:ring-offset-2;
+  @apply focus:ring-indigo-600;
+}
+
+.table {
+  @apply min-w-full;
+  @apply table-fixed;
+  @apply divide-y;
+  @apply divide-gray-300;
+}
+
+.tableHeader {
+  @apply py-3.5;
+  @apply text-left;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply text-gray-900;
+}
+
+.tableHeaderCheckbox {
+  @apply relative;
+  @apply px-7;
+  @apply sm:w-12;
+  @apply sm:px-6;
+}
+
+.tableHeaderName {
+  @apply min-w-[12rem];
+  @apply pr-3;
+}
+
+.tableHeaderEdit {
+  @apply relative;
+  @apply py-3.5;
+  @apply pl-3;
+  @apply pr-4;
+  @apply sm:pr-3;
+}
+
+.tableHeaderOthers {
+  @apply px-3;
+}
+
+.checkbox {
+  @apply absolute;
+  @apply left-4;
+  @apply top-1/2;
+  @apply -mt-2;
+  @apply h-4;
+  @apply w-4;
+  @apply rounded;
+  @apply border-gray-300;
+  @apply text-indigo-600;
+  @apply focus:ring-indigo-600;
+}
+
+.row {
+  @apply bg-gray-50;
+}
+
+.rowBorderLeft {
+  @apply absolute;
+  @apply inset-y-0;
+  @apply left-0;
+  @apply w-0.5;
+  @apply bg-indigo-600;
+}
+
+.cell {
+  @apply whitespace-nowrap;
+  @apply py-4;
+  @apply pr-3;
+  @apply text-sm;
+  @apply font-medium;
+}
+
+.cellGray {
+  @apply text-gray-500;
+}
+
+.cellLink {
+  @apply text-indigo-600;
+  @apply hover:text-indigo-900;
+}
+
+.cellHighlight {
+  @apply text-indigo-600;
+}
+
+.buttons {
+  @apply absolute;
+  @apply left-14;
+  @apply top-0;
+  @apply flex;
+  @apply h-12;
+  @apply items-center;
+  @apply space-x-3;
+  @apply bg-white;
+  @apply sm:left-12;
+}
+
+.button {
+  @apply inline-flex;
+  @apply items-center;
+  @apply rounded;
+  @apply bg-white;
+  @apply px-2;
+  @apply py-1;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply text-gray-900;
+  @apply shadow-sm;
+  @apply ring-1;
+  @apply ring-inset;
+  @apply ring-gray-300;
+  @apply hover:bg-gray-50;
+  @apply disabled:cursor-not-allowed;
+  @apply disabled:opacity-30;
+  @apply disabled:hover:bg-white;
+}
+
+.flowRoot {
+  @apply mt-8;
+  @apply flow-root;
+}
+
+.overflow {
+  @apply -mx-4;
+  @apply -my-2;
+  @apply overflow-x-auto;
+  @apply sm:-mx-6;
+  @apply lg:-mx-8;
+}
+
+.innerBlock {
+  @apply inline-block;
+  @apply min-w-full;
+  @apply py-2;
+  @apply align-middle;
+  @apply sm:px-6;
+  @apply lg:px-8;
+}
+
+.relativeDiv {
+  @apply relative;
+}
+
+.tableCellCheckbox {
+  @apply relative;
+  @apply px-7;
+  @apply sm:w-12;
+  @apply sm:px-6;
+}
+
+.tableBody {
+  @apply divide-y;
+  @apply divide-gray-200;
+  @apply bg-white;
+}

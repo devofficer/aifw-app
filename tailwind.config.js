@@ -9,6 +9,7 @@ module.exports = {
         "primary-500": "#A2DF03",
         "primary-transparent": "#B2EF03AA",
         secondary: "#000000",
+        main: "#7c848c",
       },
       fontSize: {
         sm: "14px",
@@ -19,5 +20,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

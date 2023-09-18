@@ -7,19 +7,26 @@ interface FormTextFieldProps {
   placeholder?: string;
 }
 
-const FormTextField = ({ name, type, label, placeholder }: FormTextFieldProps) => {
+const FormTextField = ({
+  name,
+  type,
+  label,
+  placeholder,
+}: FormTextFieldProps) => {
   return (
     <div className={styles.container}>
-      <label htmlFor={name} className={styles.label}>{label}</label>
-      <input 
-        type={type} 
-        id={name} 
-        name={name} 
+      <label htmlFor={name} className={styles.label}>
+        {label}
+      </label>
+      <input
+        type={type}
+        id={name}
+        name={name}
         placeholder={placeholder}
-        className={styles.input} 
+        className={styles.input}
       />
     </div>
   );
-}
+};
 
 export default FormTextField;

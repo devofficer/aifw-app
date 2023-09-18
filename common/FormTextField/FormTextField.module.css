@@ -9,9 +9,10 @@
 .input {
   @apply w-full;
   @apply bg-transparent text-secondary;
-  @apply px-2 py-1;
+  @apply px-1 py-1;
   @apply outline-none;
+  @apply border-l-0 border-t-0 border-r-0;
   @apply border-b-2 border-primary-transparent focus:border-primary;
   @apply placeholder:text-gray-400;
-  @apply outline-none;
+  @apply focus:ring-0;
 }

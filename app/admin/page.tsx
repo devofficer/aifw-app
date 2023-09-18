@@ -1,8 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import FormView from "@/components/FormView";
-import Banner from "@/components/Banner";
+import DataTable from "@/common/DataTable";
+import styles from "./admin.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -14,11 +14,8 @@ export default async function Index() {
   } = await supabase.auth.getUser();
 
   return (
-    <>
-      <div className="container">
-        <Banner />
-        <FormView />
-      </div>
-    </>
+    <div className={styles.container}>
+      <DataTable />
+    </div>
   );
 }

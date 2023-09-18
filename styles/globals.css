@@ -15,22 +15,12 @@
 }
 
 body {
-  background-color: #7c848c;
   font-family: "Kanit";
   @apply text-sm;
 }
 
 p {
   color: white;
-}
-
-.container {
-  @apply mx-auto;
-}
-
-.viewport {
-  @apply pt-[30px];
-  @apply px-3 sm:px-6 md:px-14;
 }
 
 .swiper-button-next,
