@@ -7,6 +7,7 @@ module.exports = {
         primary: "#C2FF04",
         "primary-600": "#B2EF03",
         "primary-500": "#A2DF03",
+        "primary-transparent": "#B2EF03AA",
         secondary: "#000000",
       },
       fontSize: {

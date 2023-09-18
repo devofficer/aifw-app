@@ -1,48 +1,39 @@
 import Section from "@/common/Section";
 import styles from "./Description.module.css";
+import FormTextField from "@/common/FormTextField";
+import FormButton from "@/common/FormButton";
+import DropDown from "@/common/DropDown";
+import { models } from "@/config/models";
 
 export const dynamic = "force-dynamic";
 
 const Description = () => {
   return (
     <Section>
-      <h3 className={styles.title}>Powered by AI, Designed by the community</h3>
-      <div className={styles.descriptions}>
-        <div className={styles.descItem}>
-          <h6 className={styles.descTitle}>
-            The Competition
-          </h6>
-          <p className={styles.descContent}>
-            Lorem ipsum dolor sit amet consectetur. Morbi vulputate aliquet non sed volutpat. Nibh integer congue tortor proin. Massa dui et feugiat aliquam id neque. Tincidunt purus neque arcu feugiat augue. Ut elit nisl tincidunt diam dui congue lobortis. Vestibulum parturient ridiculus ac sit placerat quis dui congue. Venenatis ornare nunc sit quam maecenas. Odio lorem feugiat lorem imperdiet commodo morbi ut congue. Purus dis nec euismod feugiat nulla viverra vel at. Non ut lectus tortor augue aliquam auctor nullam odio urna. Pellentesque malesuada iaculis ac massa in cras ultrices orci.
-          </p>
-        </div>
-        <div className={styles.descItem}>
-          <h6 className={styles.descTitle}>
-            About Clé de Peau
-          </h6>
-          <p className={styles.descContent}>
-            Lorem ipsum dolor sit amet consectetur. Morbi vulputate aliquet non sed volutpat. Nibh integer congue tortor proin. Massa dui et feugiat aliquam id neque. Tincidunt purus neque arcu feugiat augue. Ut elit nisl tincidunt diam dui congue lobortis. Vestibulum parturient ridiculus ac sit placerat quis dui congue. Venenatis ornare nunc sit quam maecenas. Odio lorem feugiat lorem imperdiet commodo morbi ut congue. Purus dis nec euismod feugiat nulla viverra vel at. Non ut lectus tortor augue aliquam auctor nullam odio urna. Pellentesque malesuada iaculis ac massa in cras ultrices orci.
-          </p>
-        </div>
-        <div className={styles.descItem}>
-          <h6 className={styles.descTitle}>
-            Prize
-          </h6>
-          <p className={styles.descContent}>
-            Duis feugiat in imperdiet congue ac egestas fames laoreet volutpat. Fermentum gravida et potenti pulvinar in nam. Dignissim sagittis magna odio etiam urna tristique varius eu. Pharetra ut nibh ornare semper eget integer sem lorem. Sed lectus quis ullamcorper proin pretium dolor quis massa placerat.
-          </p>
-        </div>
-        <div className={styles.descItem}>
-          <h6 className={styles.descTitle}>
-            About Kaite Rodgers
-          </h6>
-          <p className={styles.descContent}>
-            Duis feugiat in imperdiet congue ac egestas fames laoreet volutpat. Fermentum gravida et potenti pulvinar in nam. Dignissim sagittis magna odio etiam urna tristique varius eu. Pharetra ut nibh ornare semper eget integer sem lorem. Sed lectus quis ullamcorper proin pretium dolor quis massa placerat.
-          </p>
+      <div className={styles.wrapper}>
+        <h3 className={styles.title}>Upload Form</h3>
+        <FormTextField name="name" label="Name" type="text" placeholder="" />
+        <FormTextField name="email" label="Email" type="text" placeholder="" />
+        <DropDown label="Country" items={models} />
+        <FormTextField
+          name="birthdate"
+          label="BirthDate"
+          type="text"
+          placeholder=""
+        />
+        <DropDown label="AI tools" items={models} />
+        <FormTextField
+          name="instagram"
+          label="Instagram"
+          type="text"
+          placeholder=""
+        />
+        <div className={styles.submit}>
+          <FormButton text="Submit" />
         </div>
       </div>
     </Section>
-  )
-}
+  );
+};
 
 export default Description;

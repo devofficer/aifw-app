@@ -1,23 +1,17 @@
+.wrapper {
+  @apply max-w-xs sm:max-w-sm md:max-w-md mx-auto;
+  @apply border rounded-md border-secondary;
+  @apply px-6 py-3;
+  @apply space-y-3;
+}
+
 .title {
-  @apply text-2xl uppercase font-bold;
-  @apply text-center text-secondary;
-  @apply mb-16;
+  @apply uppercase font-semibold;
+  @apply text-center;
+  @apply text-primary;
+  @apply mb-4;
 }
 
-.descriptions {
-  @apply grid grid-cols-1 md:grid-cols-2;
-  @apply gap-x-8 xl:gap-x-28;
-  @apply gap-y-8;
-}
-
-.descItem {
-  @apply flex flex-col space-y-4;
-}
-
-.descTitle {
-  @apply uppercase font-bold text-secondary text-xl;
-}
-
-.descItem {
-  @apply text-justify;
+.submit {
+  @apply flex justify-center;
 }

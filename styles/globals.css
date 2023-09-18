@@ -17,6 +17,7 @@
 body {
   background-color: #7c848c;
   font-family: "Kanit";
+  @apply text-sm;
 }
 
 p {
@@ -68,7 +69,7 @@ p {
 }
 
 .swiper-pagination-bullet-active {
-  background: #ce5f3c !important;
+  background: #c2ff04 !important;
 }
 
 ::-webkit-scrollbar {
@@ -82,11 +83,11 @@ p {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ce5f3caa;
+  background: #c2ff04aa;
   cursor: pointer;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ce5f3c;
+  background: #c2ff04bb;
 }
