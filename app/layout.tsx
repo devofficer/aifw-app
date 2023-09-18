@@ -6,8 +6,8 @@ export const dynamic = "force-dynamic";
 import "@/styles/globals.css";
 
 export const metadata = {
-  title: "MaisonMeta",
-  description: "Generative AI platform provided by MaisonMeta",
+  title: "AIFW",
+  description: "AIFW Uploaing platform",
 };
 
 export default function RootLayout({
