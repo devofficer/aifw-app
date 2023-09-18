@@ -1,11 +1,10 @@
 .container {
-  @apply flex justify-center md:justify-between items-center;
-  @apply px-2 sm:px-6 md:px-14 py-7;
-  @apply absolute w-full;
+  @apply flex justify-end items-center;
+  @apply px-2 sm:px-6 md:px-14 py-3;
+  @apply w-full;
   @apply z-50;
-  max-width: 1440px;
+  @apply bg-primary text-secondary;
 }
 
 .links {
-  @apply hidden md:block;
 }

@@ -15,8 +15,7 @@
 }
 
 body {
-  background-color: #7C848C;
-  margin: auto;
+  background-color: #7c848c;
   font-family: "Kanit";
 }
 
@@ -27,11 +26,6 @@ p {
 .viewport {
   @apply pt-[165px];
   @apply px-3 sm:px-6 md:px-14;
-}
-
-.container {
-  @apply max-w-[1400px];
-  @apply mx-auto;
 }
 
 .swiper-button-next,
@@ -70,7 +64,7 @@ p {
 }
 
 .swiper-pagination-bullet-active {
-  background: #CE5F3C !important;
+  background: #ce5f3c !important;
 }
 
 ::-webkit-scrollbar {
@@ -79,16 +73,16 @@ p {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #CE5F3CAA;
-  cursor: pointer; 
+  background: #ce5f3caa;
+  cursor: pointer;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #CE5F3C; 
+  background: #ce5f3c;
 }
