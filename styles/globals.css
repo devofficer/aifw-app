@@ -23,8 +23,12 @@ p {
   color: white;
 }
 
+.container {
+  @apply mx-auto;
+}
+
 .viewport {
-  @apply pt-[165px];
+  @apply pt-[30px];
   @apply px-3 sm:px-6 md:px-14;
 }
 
