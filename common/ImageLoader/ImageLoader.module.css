@@ -1,0 +1,30 @@
+@keyframes loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: -100% 50%;
+  }
+}
+
+.container {
+  @apply relative overflow-hidden cursor-pointer;
+}
+
+.loader {
+  @apply absolute w-full h-full;
+  @apply ease-in-out duration-500 transition-opacity;
+  background: linear-gradient(90deg, #f0f0f0 25%, #a0a0a0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.loadingWrapper {
+  @apply w-full;
+  @apply h-16;
+  @apply flex justify-center items-center;
+}
+
+.hidden {
+  display: none;
+}

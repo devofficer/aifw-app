@@ -1,0 +1,32 @@
+.container {
+  @apply flex flex-col xl:flex-row items-center;
+  @apply justify-center xl:justify-between;
+  @apply px-2 xl:px-16 py-12;
+  @apply space-y-3 xl:space-y-0;
+}
+
+.links {
+  @apply flex space-x-2;
+}
+
+.links > * {
+  @apply text-secondary;
+}
+
+.links > a {
+  @apply hover:text-gray-600;
+}
+
+.companies {
+  @apply flex flex-col justify-center md:flex-row md:justify-start;
+  @apply space-x-0 md:space-x-8;
+  @apply space-y-3 md:space-y-0;
+}
+
+.company {
+  @apply flex space-x-2 items-center;
+}
+
+.company span {
+  @apply text-[11px] font-light text-secondary;
+}

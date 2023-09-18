@@ -1,0 +1,60 @@
+.container {
+  @apply flex items-center space-x-3;
+  @apply relative;
+}
+
+.label {
+  @apply relative;
+  @apply text-md font-medium uppercase;
+}
+
+.cfg {
+  @apply absolute;
+  @apply -top-4 -right-3;
+  @apply text-sm;
+  @apply cursor-pointer;
+}
+
+.tooltip {
+  @apply w-64;
+  @apply text-justify;
+}
+
+.icon {
+  @apply w-5 h-5;
+}
+
+.slider {
+  @apply appearance-none;
+  @apply w-full h-2;
+  @apply bg-white;
+  @apply rounded-2xl;
+  @apply opacity-75;
+}
+
+.slider:hover {
+  @apply opacity-100;
+}
+
+.slider::-webkit-slider-thumb {
+  @apply appearance-none;
+  @apply w-4 h-4;
+  @apply rounded-full;
+  @apply bg-primary;
+  @apply cursor-pointer;
+}
+
+.slider::-moz-range-thumb {
+  @apply appearance-none;
+  @apply w-4 h-4;
+  @apply rounded-full;
+  @apply bg-primary;
+  @apply cursor-pointer;
+}
+
+.thumbTip {
+  @apply !ml-0;
+  @apply absolute;
+  @apply -top-4;
+  @apply text-white;
+}

@@ -1,0 +1,13 @@
+.container {
+  @apply flex space-x-5 items-center;
+}
+
+.linkItem {
+  @apply uppercase;
+  @apply cursor-pointer;
+  @apply text-secondary hover:text-gray-300 active:text-gray-500;
+}
+
+.email {
+  @apply text-secondary hover:text-gray-300 active:text-gray-500;
+}

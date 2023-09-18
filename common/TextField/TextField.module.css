@@ -1,0 +1,38 @@
+.container {
+  @apply flex items-center space-x-3;
+}
+
+.label {
+  @apply text-md font-medium uppercase text-secondary;
+  @apply relative;
+}
+
+.input {
+  @apply w-full;
+  @apply bg-primary text-secondary;
+  @apply px-3 py-2;
+  @apply rounded-xl;
+  @apply outline-none;
+  @apply border-2 border-transparent focus:border-secondary;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.tooltip {
+  @apply w-64;
+  @apply text-justify;
+}
+
+.icon {
+  @apply w-5 h-5;
+}
+
+.cfg {
+  @apply absolute;
+  @apply -top-4 -right-3;
+  @apply text-sm;
+  @apply cursor-pointer;
+}

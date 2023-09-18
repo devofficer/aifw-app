@@ -1,0 +1,20 @@
+.container {
+  @apply absolute;
+  @apply z-50;
+  @apply flex flex-col items-center;
+}
+
+.loading {
+  @apply w-8 h-8;
+  @apply border-2;
+  @apply border-t-primary border-r-primary;
+  @apply border-l-[#DE6F4C22] border-b-[#DE6F4C11];
+  @apply rounded-full;
+  @apply bg-transparent;
+  @apply animate-spin;
+}
+
+.label {
+  @apply pt-3;
+  @apply text-primary;
+}

@@ -1,0 +1,23 @@
+.title {
+  @apply text-2xl uppercase font-bold;
+  @apply text-center text-secondary;
+  @apply mb-16;
+}
+
+.descriptions {
+  @apply grid grid-cols-1 md:grid-cols-2;
+  @apply gap-x-8 xl:gap-x-28;
+  @apply gap-y-8;
+}
+
+.descItem {
+  @apply flex flex-col space-y-4;
+}
+
+.descTitle {
+  @apply uppercase font-bold text-secondary text-xl;
+}
+
+.descItem {
+  @apply text-justify;
+}

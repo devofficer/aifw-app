@@ -1,0 +1,9 @@
+.button {
+  @apply rounded-2xl;
+  @apply px-8 py-2;
+  @apply bg-primary hover:bg-primary-500 active:bg-primary-600; 
+  @apply font-bold uppercase;
+  @apply text-secondary;
+  @apply shadow-sm;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600;
+}

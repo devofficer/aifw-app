@@ -1,0 +1,59 @@
+.container {
+  @apply flex items-center;
+}
+
+.wrapper {
+  @apply flex gap-12 items-center;
+  @apply ml-8;
+}
+
+.itemWrapper {
+  @apply flex w-10 h-10;
+  @apply justify-center items-center;
+}
+
+.item {
+  @apply flex flex-col justify-center items-center text-white;
+  @apply cursor-pointer;
+}
+
+.item:hover {
+  @apply text-primary-500;
+}
+
+.item.active {
+  @apply text-primary;
+}
+
+.itemLabel {
+  @apply text-sm;
+}
+
+.label {
+  @apply uppercase text-white;
+}
+
+.icon {
+  @apply w-8 h-8;
+}
+
+.item.active .potrait, 
+.item.active .square, 
+.item.active .landscape {
+  @apply border-primary;
+}
+
+.potrait, .square, .landscape {
+  @apply block;
+  @apply w-6 h-8;
+  @apply bg-white;
+  @apply border-2 border-white;
+}
+
+.square {
+  @apply w-7 h-7;
+}
+
+.landscape {
+  @apply w-10 h-6;
+}

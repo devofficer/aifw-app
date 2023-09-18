@@ -1,0 +1,9 @@
+.container {
+  @apply pt-4 pb-10;
+}
+
+.container:not(:last-child)::after {
+  content: "";
+  @apply mt-10;
+  @apply block h-[3px] bg-primary;
+}

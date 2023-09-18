@@ -1,0 +1,73 @@
+.container {
+  @apply relative mt-2;
+}
+
+.label {
+  @apply uppercase;
+  @apply font-bold;
+  @apply px-4 py-2;
+  @apply text-secondary;
+}
+
+.selector {
+  @apply flex justify-between;
+  @apply relative w-full; 
+  @apply py-1.5 pl-12 pr-8;
+  @apply cursor-pointer;
+  @apply rounded-2xl;
+  @apply bg-primary;
+  @apply font-medium text-left text-secondary;
+  @apply shadow-sm;
+}
+
+.selectorName {
+  @apply block truncate; 
+}
+
+.selectorIconWrapper {
+  @apply pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2;
+}
+
+.icon {
+  @apply w-5 h-5;
+}
+
+.selectorIcon {
+  @apply text-secondary;
+}
+
+.listBox {
+  @apply absolute z-10 mt-1 max-h-60 w-full;
+  @apply py-1;
+  @apply overflow-auto;
+  @apply rounded-md;
+  @apply bg-secondary shadow-lg;
+  @apply ring-1 ring-primary-600 ring-opacity-5;
+  @apply focus:outline-none;
+}
+
+.listOption {
+  @apply bg-secondary text-primary-600;
+  @apply relative cursor-pointer select-none py-2 pl-8 pr-4;
+}
+
+.listOption.active {
+  @apply bg-primary-600 text-white;
+}
+
+.listItemName {
+  @apply block truncate;
+}
+
+.listItemName.active {
+  @apply font-semibold;
+}
+
+.listItemContent {
+  @apply absolute inset-y-0 left-0 flex items-center pl-1.5;
+  @apply text-primary-600;
+}
+
+.listItemContent.active {
+  @apply text-secondary;
+}

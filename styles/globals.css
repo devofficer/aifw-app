@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --swiper-navigation-size: 15px !important;
+  --swiper-pagination-bottom: 25px !important;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+body {
+  background-color: #7C848C;
+  margin: auto;
+  font-family: "Kanit";
+}
+
+p {
+  color: white;
+}
+
+.viewport {
+  @apply pt-[165px];
+  @apply px-3 sm:px-6 md:px-14;
+}
+
+.container {
+  @apply max-w-[1400px];
+  @apply mx-auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: calc(var(--swiper-navigation-size) + 10px) !important;
+  height: calc(var(--swiper-navigation-size) + 10px) !important;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8) !important;
+  font-size: 24px;
+  font-weight: 800;
+  color: black !important;
+  mix-blend-mode: screen;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-image: rgba(255, 255, 255, 0.9) !important;
+}
+
+.swiper-button-next::after {
+  margin-left: 3px !important;
+}
+
+.swiper-button-prev::after {
+  margin-right: 3px !important;
+}
+
+.swiper-pagination {
+  bottom: var(--swiper-pagination-bottom) !important;
+}
+
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 1) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #CE5F3C !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #CE5F3CAA;
+  cursor: pointer; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #CE5F3C; 
+}
