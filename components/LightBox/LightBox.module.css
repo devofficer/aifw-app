@@ -1,0 +1,45 @@
+.container {
+  @apply fixed;
+  @apply top-0 left-0;
+  @apply w-full h-screen;
+  @apply bg-[#000000AA];
+  @apply z-50;
+  @apply flex flex-col justify-center items-center;
+  @apply px-3;
+}
+
+.close {
+  @apply absolute;
+  @apply top-0 right-0;
+  @apply p-4;
+  @apply bg-black;
+  @apply cursor-pointer;
+}
+
+.close:hover {
+  @apply bg-black;
+}
+
+.close:active {
+  @apply bg-[#00000066];
+}
+
+.icon {
+  @apply h-5 w-5 text-white;
+}
+
+.invisible {
+  @apply hidden;
+}
+
+.description {
+  @apply max-w-[640px];
+}
+
+.description p {
+  text-align: left;
+}
+
+.content {
+  @apply max-w-min;
+}

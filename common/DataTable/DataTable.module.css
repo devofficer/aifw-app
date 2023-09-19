@@ -1,4 +1,5 @@
 .container {
+  @apply py-6;
   @apply px-4;
   @apply sm:px-6;
   @apply lg:px-8;
@@ -36,7 +37,7 @@
 .addButton {
   @apply block;
   @apply rounded-md;
-  @apply bg-indigo-600;
+  @apply bg-primary-600;
   @apply px-3;
   @apply py-1.5;
   @apply text-center;
@@ -45,11 +46,11 @@
   @apply leading-6;
   @apply text-white;
   @apply shadow-sm;
-  @apply hover:bg-indigo-500;
+  @apply hover:bg-primary-500;
   @apply focus:outline-none;
   @apply focus:ring-2;
   @apply focus:ring-offset-2;
-  @apply focus:ring-indigo-600;
+  @apply focus:ring-primary-600;
 }
 
 .table {
@@ -60,6 +61,7 @@
 }
 
 .tableHeader {
+  @apply px-3;
   @apply py-3.5;
   @apply text-left;
   @apply text-sm;
@@ -100,8 +102,8 @@
   @apply w-4;
   @apply rounded;
   @apply border-gray-300;
-  @apply text-indigo-600;
-  @apply focus:ring-indigo-600;
+  @apply text-primary-600;
+  @apply focus:ring-primary-600;
 }
 
 .row {
@@ -113,28 +115,31 @@
   @apply inset-y-0;
   @apply left-0;
   @apply w-0.5;
-  @apply bg-indigo-600;
+  @apply bg-primary-600;
 }
 
 .cell {
+  @apply align-top;
   @apply whitespace-nowrap;
   @apply py-4;
-  @apply pr-3;
+  @apply px-3;
   @apply text-sm;
   @apply font-medium;
-}
-
-.cellGray {
   @apply text-gray-500;
 }
 
+.cellItem {
+  display: flex;
+  align-items: flex-start;
+}
+
 .cellLink {
-  @apply text-indigo-600;
-  @apply hover:text-indigo-900;
+  @apply text-primary-600;
+  @apply hover:text-primary-500;
 }
 
 .cellHighlight {
-  @apply text-indigo-600;
+  @apply text-primary-600;
 }
 
 .buttons {
@@ -206,4 +211,35 @@
   @apply divide-y;
   @apply divide-gray-200;
   @apply bg-white;
+}
+
+.imageContainer {
+  @apply flex;
+  @apply space-x-1;
+}
+
+.image {
+  @apply w-10;
+  @apply rounded-lg;
+  @apply overflow-hidden;
+}
+
+.actions {
+  @apply flex flex-col;
+  @apply space-y-1;
+  @apply items-center;
+}
+
+.approvedItem {
+  @apply flex space-x-1 items-center;
+  @apply text-green-500;
+}
+
+.deniedItem {
+  @apply flex space-x-1 items-center;
+  @apply text-red-500;
+}
+
+.icon {
+  @apply w-4 h-4;
 }

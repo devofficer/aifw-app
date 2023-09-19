@@ -1,7 +1,26 @@
 "use client";
 
+import LightBox from "@/components/LightBox";
+import ImageLoader from "../ImageLoader";
+import ImageViewer from "../ImageViewer";
 import styles from "./DataTable.module.css";
 import { useLayoutEffect, useRef, useState } from "react";
+import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/20/solid";
+import Button from "../Button";
+
+interface ITableHeader {
+  label: string;
+  dataIndex: string;
+}
+
+const headers: ITableHeader[] = [
+  { label: "Name", dataIndex: "name" },
+  { label: "Email", dataIndex: "email" },
+  { label: "Country", dataIndex: "country" },
+  { label: "age", dataIndex: "age" },
+  { label: "Ai Tools", dataIndex: "aiTool" },
+  { label: "Instagram", dataIndex: "instagram" },
+];
 
 interface ITableItem {
   id: string;
@@ -12,28 +31,78 @@ interface ITableItem {
   aiTool: string;
   instagram: string;
   status: boolean;
+  images: string[];
 }
 
-const people = [
+const people: ITableItem[] = [
   {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-  },
-  {
+    id: "1",
     name: "Lindsay Walton1",
-    title: "Front-end Developer",
     email: "lindsay.walton@example.com",
-    role: "Member",
+    country: "US",
+    age: 28,
+    aiTool: "Stable Diffusion",
+    instagram: "hello",
+    status: false,
+    images: [
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+    ],
   },
   {
+    id: "2",
     name: "Lindsay Walton2",
-    title: "Front-end Developer",
     email: "lindsay.walton@example.com",
-    role: "Member",
+    country: "US",
+    age: 28,
+    aiTool: "Stable Diffusion",
+    instagram: "hello",
+    status: true,
+    images: [
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+    ],
   },
-  // More people...
+  {
+    id: "3",
+    name: "Lindsay Walton3",
+    email: "lindsay.walton@example.com",
+    country: "US",
+    age: 28,
+    aiTool: "Stable Diffusion",
+    instagram: "hello",
+    status: false,
+    images: [
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+    ],
+  },
+  {
+    id: "4",
+    name: "Lindsay Walton4",
+    email: "lindsay.walton@example.com",
+    country: "US",
+    age: 28,
+    aiTool: "Stable Diffusion",
+    instagram: "hello",
+    status: true,
+    images: [
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
+    ],
+  },
 ];
 
 export default function DataTable() {
@@ -41,6 +110,7 @@ export default function DataTable() {
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedPeople, setSelectedPeople] = useState<any>([]);
+  const [selectedUrl, setSelectedUrl] = useState<string>("");
 
   useLayoutEffect(() => {
     const isIndeterminate =
@@ -60,16 +130,11 @@ export default function DataTable() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerWrapper}>
-          <h1 className={styles.headerTitle}>Users</h1>
+          <h1 className={styles.headerTitle}>Uploaded Images</h1>
           <p className={styles.headerDescription}>
-            A list of all the users in your account including their name, title,
-            email, and role.
+            A list of all the users in your account including their name, email,
+            instagram and images.
           </p>
-        </div>
-        <div className={styles.addButtonWrapper}>
-          <button type="button" className={styles.addButton}>
-            Add user
-          </button>
         </div>
       </div>
       <div className={styles.flowRoot}>
@@ -98,39 +163,26 @@ export default function DataTable() {
                         onChange={toggleAll}
                       />
                     </th>
-                    <th
-                      scope="col"
-                      className={`${styles.tableHeader} ${styles.tableHeaderName}`}
-                    >
-                      Name
-                    </th>
-                    <th
-                      scope="col"
-                      className={`${styles.tableHeader} ${styles.tableHeaderOthers}`}
-                    >
-                      Title
-                    </th>
-                    <th
-                      scope="col"
-                      className={`${styles.tableHeader} ${styles.tableHeaderOthers}`}
-                    >
-                      Email
-                    </th>
-                    <th
-                      scope="col"
-                      className={`${styles.tableHeader} ${styles.tableHeaderOthers}`}
-                    >
-                      Role
-                    </th>
-                    <th scope="col" className={styles.talbeHeaderEdit}>
-                      <span className="sr-only">Edit</span>
+                    {headers.map((header, idx) => {
+                      return (
+                        <th
+                          key={idx}
+                          scope="col"
+                          className={styles.tableHeader}
+                        >
+                          {header.label}
+                        </th>
+                      );
+                    })}
+                    <th scope="col" className={styles.tableHeader}>
+                      <span className="sr-only">Status</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody className={styles.tableBody}>
-                  {people.map((person) => (
+                  {people.map((person, idx) => (
                     <tr
-                      key={person.email}
+                      key={idx}
                       className={
                         selectedPeople.includes(person) ? styles.row : undefined
                       }
@@ -153,26 +205,59 @@ export default function DataTable() {
                           }
                         />
                       </td>
-                      <td className={`${styles.cell} ${styles.cellHighlight}`}>
-                        {person.name}
-                      </td>
-                      <td className={`${styles.cell} ${styles.cellGray}`}>
-                        {person.title}
-                      </td>
-                      <td className={`${styles.cell} ${styles.cellGray}`}>
-                        {person.email}
-                      </td>
-                      <td className={`${styles.cell} ${styles.cellGray}`}>
-                        {person.role}
-                      </td>
+                      {headers.map((header, idx) => {
+                        if (idx === 0) {
+                          return (
+                            <td
+                              key={idx}
+                              className={`${styles.cell} ${styles.cellGray}`}
+                            >
+                              {person[header.dataIndex as keyof ITableItem]}
+                              <div className={styles.imageContainer}>
+                                {person.images.map((url, idx) => {
+                                  return (
+                                    <div
+                                      className={styles.image}
+                                      onClick={() => setSelectedUrl(url)}
+                                    >
+                                      <ImageLoader
+                                        key={idx}
+                                        idx={idx}
+                                        url={url}
+                                      />
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </td>
+                          );
+                        }
+                        return (
+                          <td key={idx} className={styles.cell}>
+                            {person[header.dataIndex as keyof ITableItem]}
+                          </td>
+                        );
+                      })}
                       <td className={styles.cell}>
-                        <a
-                          href="#"
-                          className={styles.cellLink}
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          Edit
-                        </a>
+                        <div className={styles.actions}>
+                          {person.status ? (
+                            <span className={styles.approvedItem}>
+                              <CheckCircleIcon className={styles.icon} />
+                              <span>Approved</span>
+                            </span>
+                          ) : (
+                            <span className={styles.deniedItem}>
+                              <MinusCircleIcon className={styles.icon} />
+                              <span>Denied</span>
+                            </span>
+                          )}
+                          <Button
+                            size="sm"
+                            variant={person.status ? "danger" : "success"}
+                            text={person.status ? "Deny" : "Approve"}
+                            handler={() => {}}
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -181,6 +266,7 @@ export default function DataTable() {
             </div>
           </div>
         </div>
+        <LightBox url={selectedUrl} handleClose={setSelectedUrl} />
       </div>
     </div>
   );
