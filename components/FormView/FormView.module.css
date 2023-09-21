@@ -3,22 +3,15 @@
   @apply top-0 left-0;
   @apply w-full h-full;
   @apply flex flex-col justify-center;
+  @apply px-4;
 }
 
 .wrapper {
   @apply mt-10;
-  @apply max-w-xs sm:max-w-sm md:max-w-md mx-auto;
+  @apply max-w-sm sm:max-w-xl md:max-w-2xl mx-auto;
   @apply border rounded-md border-secondary;
   @apply px-6 py-3;
   @apply space-y-3;
-}
-
-.header {
-  @apply uppercase font-bold;
-  @apply text-xl sm:text-2xl md:text-3xl;
-  @apply text-center;
-  @apply text-primary;
-  @apply mb-6;
 }
 
 .title {
@@ -26,6 +19,14 @@
   @apply text-center;
   @apply text-primary;
   @apply mb-4;
+}
+
+.error {
+  @apply uppercase font-bold;
+  @apply text-xl sm:text-2xl md:text-3xl;
+  @apply text-center;
+  @apply text-red-600;
+  @apply mb-6;
 }
 
 .submit {

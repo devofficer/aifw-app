@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer className={styles.container}>
       <div className={styles.links}>
-        <Link href={"/rules"}>Rules</Link>
+        <Link href={"https://fashionweek.ai/guidelines/"}>Rules</Link>
         <span>|</span>
-        <Link href={"/faq"}>FAQ</Link>
+        <Link href={"https://fashionweek.ai/faqs/"}>FAQ</Link>
       </div>
       <span className={styles.season}>AIFW Season 2</span>
     </footer>

@@ -91,7 +91,9 @@ export default function DataTable() {
   const updateItems = (data: ITableItem[]) => {
     const newItems = [...items];
     data.forEach((updatedItem) => {
-      const idx = newItems.findIndex((item) => item.id === updatedItem.id);
+      const idx = newItems.findIndex(
+        (item) => item.email === updatedItem.email
+      );
       newItems[idx] = updatedItem;
     });
     setItems(newItems);

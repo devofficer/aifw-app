@@ -1,6 +1,7 @@
 "use client";
 
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./FormFileInput.module.css";
 
@@ -18,9 +19,15 @@ const FormFileInput = ({ name, setValue }: IFormFileInputProps) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.currentTarget.files ?? []);
+    const files = Array.from(e.currentTarget.files ?? []).slice(0, 5);
     setSelectedFiles(files);
     setValue(name, files);
+  };
+
+  const handleRemove = (idx: number) => {
+    const newSelectedFiles = [...selectedFiles];
+    newSelectedFiles.splice(idx, 1);
+    setSelectedFiles(newSelectedFiles);
   };
 
   useEffect(() => {
@@ -47,10 +54,13 @@ const FormFileInput = ({ name, setValue }: IFormFileInputProps) => {
       {!!selectedFiles.length && (
         <div className={styles.files}>
           <p>Selected Files:</p>
-          {selectedFiles.map((file, i) => {
+          {selectedFiles.map((file, idx) => {
             return (
-              <span key={i} className={styles.fileItem}>
+              <span key={idx} className={styles.fileItem}>
                 {file.name}
+                <span onClick={() => handleRemove(idx)}>
+                  <XMarkIcon className={styles.closeIcon} />
+                </span>
               </span>
             );
           })}

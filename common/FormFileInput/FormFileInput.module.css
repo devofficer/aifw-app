@@ -23,5 +23,13 @@
 }
 
 .fileItem {
+  @apply w-full flex justify-between;
   @apply text-primary whitespace-nowrap;
+}
+
+.closeIcon {
+  @apply w-6 h-6;
+  @apply cursor-pointer;
+  @apply text-red-800;
+  @apply hover:text-red-500;
 }

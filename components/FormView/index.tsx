@@ -33,6 +33,8 @@ const FormView = () => {
     formState: { errors },
   } = useForm<IFormData>();
   const [isLoading, setIsLoading] = useState(false);
+  const [pageStep, setPageStep] = useState(0);
+
   // Create a Supabase client configured to use cookies
   const supabase = createClientComponentClient();
 
@@ -69,9 +71,9 @@ const FormView = () => {
       })
       .select();
     if (error) {
-      toast.error(error.message);
+      setPageStep(2);
     } else if (data) {
-      toast.success("Your data is saved on the server");
+      setPageStep(1);
     }
     setIsLoading(false);
   };
@@ -92,71 +94,73 @@ const FormView = () => {
     await handleSubmitAsync(data);
   };
 
-  const handleCreateUser = async () => {
-    const { data, error } = await supabase.auth.admin.createUser({
-      email: "serviusapolum@gmail.com",
-      password: "password",
-      user_metadata: { name: "Yanko" },
-    });
-    console.log(data);
-  };
-
   return (
     <section className={styles.container}>
-      <h1 className={styles.header}>WELCOME TO AIFW SEASON 2</h1>
-      <h1 className={styles.header}>
-        TO APPLY FILL THE APPLICATION FORM BELOW.
-      </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.wrapper}>
-          <h3 className={styles.title}>Upload Form</h3>
-          <FormTextField
-            name="name"
-            label="Name"
-            type="text"
-            placeholder=""
-            setValue={setValue}
-          />
-          <FormTextField
-            name="email"
-            label="Email"
-            type="email"
-            placeholder=""
-            setValue={setValue}
-          />
-          <FormTextField
-            name="birthdate"
-            label="BirthDate"
-            type="date"
-            placeholder=""
-            setValue={setValue}
-          />
-          <DropDown
-            name="country"
-            label="Country"
-            items={countryNames}
-            setValue={setValue}
-          />
+      {pageStep === 0 && (
+        <>
+          <h1 className={styles.header}>WELCOME TO AIFW SEASON 2</h1>
+          <h1 className={styles.header}>
+            TO APPLY FILL THE APPLICATION FORM BELOW.
+          </h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.wrapper}>
+              <h3 className={styles.title}>Upload Form</h3>
+              <FormTextField
+                name="name"
+                label="Name"
+                type="text"
+                placeholder="user"
+                setValue={setValue}
+              />
+              <FormTextField
+                name="email"
+                label="Email"
+                type="email"
+                placeholder="user@example.com"
+                setValue={setValue}
+              />
+              <FormTextField
+                name="birthdate"
+                label="BirthDate"
+                type="date"
+                placeholder=""
+                setValue={setValue}
+              />
+              <DropDown
+                name="country"
+                label="Country"
+                items={countryNames}
+                setValue={setValue}
+              />
 
-          <DropDown
-            name="aiTools"
-            label="AI tools"
-            items={models}
-            setValue={setValue}
-          />
-          <FormTextField
-            name="instagram"
-            label="Instagram"
-            type="text"
-            placeholder=""
-            setValue={setValue}
-          />
-          <FormFileInput name="files" setValue={setValue} />
-          <div className={styles.submit}>
-            <FormButton text="Submit" loading={isLoading} />
-          </div>
-        </div>
-      </form>
+              <DropDown
+                name="aiTools"
+                label="AI tools"
+                items={models}
+                setValue={setValue}
+              />
+              <FormTextField
+                name="instagram"
+                label="Instagram"
+                type="text"
+                placeholder="https://instagram.com/user"
+                setValue={setValue}
+              />
+              <FormFileInput name="files" setValue={setValue} />
+              <div className={styles.submit}>
+                <FormButton text="Submit" loading={isLoading} />
+              </div>
+            </div>
+          </form>
+        </>
+      )}
+      {pageStep === 1 && (
+        <h1 className={styles.header}>Your Form is submitted!</h1>
+      )}
+      {pageStep === 2 && (
+        <h1 className={styles.error}>Your Form is not submitted!</h1>
+      )}
+
       <ToastContainer
         position="top-center"
         autoClose={1000}
