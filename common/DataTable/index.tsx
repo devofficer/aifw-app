@@ -2,7 +2,6 @@
 
 import LightBox from "@/components/LightBox";
 import ImageLoader from "../ImageLoader";
-import ImageViewer from "../ImageViewer";
 import styles from "./DataTable.module.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/20/solid";
@@ -10,6 +9,9 @@ import Button from "../Button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Pagination from "../Pagination";
 import Loading from "../Loading";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ITableHeader {
   label: string;
@@ -101,6 +103,9 @@ export default function DataTable() {
       .select("*");
     if (!error) {
       updateItems(data);
+      data.forEach((item) => {
+        handleSendingEmails(item.name, item.email, item.status);
+      });
     }
   };
 
@@ -108,6 +113,34 @@ export default function DataTable() {
     const selectedIds = selectedItems.map((item) => item.id);
     await handleAllow(selectedIds, status);
     setSelectedItems([]);
+  };
+
+  const handleSendingEmails = async (
+    name: string,
+    email: string,
+    status: boolean
+  ) => {
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_EMAIL_JS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAIL_JS_TEMPLATE_ID as string,
+        {
+          to_name: name,
+          to_email: email,
+          status: status ? "Approved" : "Denied",
+        },
+        process.env.NEXT_PUBLIC_EMAIL_JS_PUBLIC_KEY
+      )
+      .then(
+        (result: any) => {
+          toast.info(`Email sent to ${name}:${email}`);
+        },
+        (error: any) => {
+          // show the user an error
+          toast.error(`Email is not sent to ${name}:${email}`);
+          console.log(error);
+        }
+      );
   };
 
   useEffect(() => {
@@ -269,6 +302,12 @@ export default function DataTable() {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}
+      />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        closeOnClick
+        theme="light"
       />
       {isLoading && <Loading />}
     </div>
