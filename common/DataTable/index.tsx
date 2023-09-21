@@ -12,6 +12,7 @@ import Loading from "../Loading";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 interface ITableHeader {
   label: string;
@@ -265,6 +266,22 @@ export default function DataTable() {
                                   );
                                 })}
                               </div>
+                            </td>
+                          );
+                        }
+                        if (idx === 5) {
+                          return (
+                            <td key={idx} className={styles.cell}>
+                              <Link
+                                className={styles.link}
+                                href={
+                                  item[
+                                    header.dataIndex as keyof ITableItem
+                                  ] as string
+                                }
+                              >
+                                {item[header.dataIndex as keyof ITableItem]}
+                              </Link>
                             </td>
                           );
                         }
