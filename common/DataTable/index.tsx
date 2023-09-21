@@ -4,9 +4,11 @@ import LightBox from "@/components/LightBox";
 import ImageLoader from "../ImageLoader";
 import ImageViewer from "../ImageViewer";
 import styles from "./DataTable.module.css";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/20/solid";
 import Button from "../Button";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Pagination from "../Pagination";
 
 interface ITableHeader {
   label: string;
@@ -17,7 +19,7 @@ const headers: ITableHeader[] = [
   { label: "Name", dataIndex: "name" },
   { label: "Email", dataIndex: "email" },
   { label: "Country", dataIndex: "country" },
-  { label: "age", dataIndex: "age" },
+  { label: "Age", dataIndex: "age" },
   { label: "Ai Tools", dataIndex: "aiTool" },
   { label: "Instagram", dataIndex: "instagram" },
 ];
@@ -34,97 +36,80 @@ interface ITableItem {
   images: string[];
 }
 
-const people: ITableItem[] = [
-  {
-    id: "1",
-    name: "Lindsay Walton1",
-    email: "lindsay.walton@example.com",
-    country: "US",
-    age: 28,
-    aiTool: "Stable Diffusion",
-    instagram: "hello",
-    status: false,
-    images: [
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-    ],
-  },
-  {
-    id: "2",
-    name: "Lindsay Walton2",
-    email: "lindsay.walton@example.com",
-    country: "US",
-    age: 28,
-    aiTool: "Stable Diffusion",
-    instagram: "hello",
-    status: true,
-    images: [
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-    ],
-  },
-  {
-    id: "3",
-    name: "Lindsay Walton3",
-    email: "lindsay.walton@example.com",
-    country: "US",
-    age: 28,
-    aiTool: "Stable Diffusion",
-    instagram: "hello",
-    status: false,
-    images: [
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-    ],
-  },
-  {
-    id: "4",
-    name: "Lindsay Walton4",
-    email: "lindsay.walton@example.com",
-    country: "US",
-    age: 28,
-    aiTool: "Stable Diffusion",
-    instagram: "hello",
-    status: true,
-    images: [
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-      "https://pbxt.replicate.delivery/LEk61OmxgN6xMF5eDYP8zdxevuE4ihtxgNi22SbZqH9uznkRA/output-3.png",
-    ],
-  },
-];
-
 export default function DataTable() {
+  const supabase = createClientComponentClient();
+
   const checkbox = useRef<any>();
+  const itemsPerPage = 1;
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
-  const [selectedPeople, setSelectedPeople] = useState<any>([]);
+  const [items, setItems] = useState<ITableItem[]>([]);
+  const [selectedItems, setSelectedItems] = useState<ITableItem[]>([]);
   const [selectedUrl, setSelectedUrl] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useLayoutEffect(() => {
     const isIndeterminate =
-      selectedPeople.length > 0 && selectedPeople.length < people.length;
-    setChecked(selectedPeople.length === people.length);
+      selectedItems.length > 0 && selectedItems.length < items.length;
+    setChecked(
+      selectedItems.length === items.length && selectedItems.length > 0
+    );
     setIndeterminate(isIndeterminate);
     checkbox.current.indeterminate = isIndeterminate;
-  }, [selectedPeople]);
+  }, [selectedItems]);
 
   function toggleAll() {
-    setSelectedPeople(checked || indeterminate ? [] : people);
+    setSelectedItems(checked || indeterminate ? [] : items);
     setChecked(!checked && !indeterminate);
     setIndeterminate(false);
   }
+
+  const loadItems = async () => {
+    const { count } = await supabase
+      .from("uploads")
+      .select("*", { count: "exact" });
+    if (count) setTotalCount(count);
+
+    const { data: items, error } = await supabase
+      .from("uploads")
+      .select("*")
+      .order("id", { ascending: false })
+      .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
+    if (items) setItems(items);
+  };
+
+  const updateItems = (data: ITableItem[]) => {
+    const newItems = [...items];
+    data.forEach((updatedItem) => {
+      const idx = newItems.findIndex((item) => item.id === updatedItem.id);
+      newItems[idx] = updatedItem;
+    });
+    setItems(newItems);
+  };
+
+  const handleAllow = async (selectedIds: string[], status: boolean) => {
+    const { data, error } = await supabase
+      .from("uploads")
+      .update({ status: status })
+      .in("id", selectedIds)
+      .select("*");
+    if (!error) {
+      updateItems(data);
+    }
+  };
+
+  const handleAllowBulk = async (status: boolean) => {
+    const selectedIds = selectedItems.map((item) => item.id);
+    await handleAllow(selectedIds, status);
+    setSelectedItems([]);
+  };
+
+  useEffect(() => {
+    loadItems();
+  }, [currentPage]);
 
   return (
     <div className={styles.container}>
@@ -141,13 +126,21 @@ export default function DataTable() {
         <div className={styles.overflow}>
           <div className={styles.innerBlock}>
             <div className={styles.relativeDiv}>
-              {selectedPeople.length > 0 && (
+              {selectedItems.length > 0 && (
                 <div className={styles.buttons}>
-                  <button type="button" className={styles.button}>
-                    Bulk edit
+                  <button
+                    type="button"
+                    className={styles.button}
+                    onClick={() => handleAllowBulk(true)}
+                  >
+                    Bulk Approve
                   </button>
-                  <button type="button" className={styles.button}>
-                    Delete all
+                  <button
+                    type="button"
+                    className={styles.button}
+                    onClick={() => handleAllowBulk(false)}
+                  >
+                    Bulk Deny
                   </button>
                 </div>
               )}
@@ -166,7 +159,7 @@ export default function DataTable() {
                     {headers.map((header, idx) => {
                       return (
                         <th
-                          key={idx}
+                          key={header.label}
                           scope="col"
                           className={styles.tableHeader}
                         >
@@ -180,27 +173,26 @@ export default function DataTable() {
                   </tr>
                 </thead>
                 <tbody className={styles.tableBody}>
-                  {people.map((person, idx) => (
+                  {items.map((item, idx) => (
                     <tr
                       key={idx}
                       className={
-                        selectedPeople.includes(person) ? styles.row : undefined
+                        selectedItems.includes(item) ? styles.row : undefined
                       }
                     >
                       <td className={styles.tableCellCheckbox}>
-                        {selectedPeople.includes(person) && (
+                        {selectedItems.includes(item) && (
                           <div className={styles.rowBorderLeft} />
                         )}
                         <input
                           type="checkbox"
                           className={styles.checkbox}
-                          value={person.email}
-                          checked={selectedPeople.includes(person)}
+                          checked={selectedItems.includes(item)}
                           onChange={(e) =>
-                            setSelectedPeople((current: any) => {
+                            setSelectedItems((current: any) => {
                               return e.target.checked
-                                ? [...current, person]
-                                : current.filter((p: any) => p !== person);
+                                ? [...current, item]
+                                : current.filter((p: any) => p !== item);
                             })
                           }
                         />
@@ -212,11 +204,12 @@ export default function DataTable() {
                               key={idx}
                               className={`${styles.cell} ${styles.cellGray}`}
                             >
-                              {person[header.dataIndex as keyof ITableItem]}
+                              {item[header.dataIndex as keyof ITableItem]}
                               <div className={styles.imageContainer}>
-                                {person.images.map((url, idx) => {
+                                {item.images.map((url, idx) => {
                                   return (
                                     <div
+                                      key={idx}
                                       className={styles.image}
                                       onClick={() => setSelectedUrl(url)}
                                     >
@@ -234,13 +227,13 @@ export default function DataTable() {
                         }
                         return (
                           <td key={idx} className={styles.cell}>
-                            {person[header.dataIndex as keyof ITableItem]}
+                            {item[header.dataIndex as keyof ITableItem]}
                           </td>
                         );
                       })}
                       <td className={styles.cell}>
                         <div className={styles.actions}>
-                          {person.status ? (
+                          {item.status ? (
                             <span className={styles.approvedItem}>
                               <CheckCircleIcon className={styles.icon} />
                               <span>Approved</span>
@@ -253,9 +246,9 @@ export default function DataTable() {
                           )}
                           <Button
                             size="sm"
-                            variant={person.status ? "danger" : "success"}
-                            text={person.status ? "Deny" : "Approve"}
-                            handler={() => {}}
+                            variant={item.status ? "danger" : "success"}
+                            text={item.status ? "Deny" : "Approve"}
+                            handler={() => handleAllow([item.id], !item.status)}
                           />
                         </div>
                       </td>
@@ -268,6 +261,12 @@ export default function DataTable() {
         </div>
         <LightBox url={selectedUrl} handleClose={setSelectedUrl} />
       </div>
+      <Pagination
+        totalItemCount={totalCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+      />
     </div>
   );
 }

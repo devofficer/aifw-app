@@ -6,13 +6,17 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ['pbxt.replicate.delivery', 'replicate.delivery']
+    domains: [
+      "pbxt.replicate.delivery",
+      "replicate.delivery",
+      "gahzjqtdotgyqjbkirfu.supabase.co",
+    ],
   },
   webpack: (config, options) => {
     config.resolve.fallback = {
       buffer: require.resolve("buffer"),
       net: false,
-      tls: false
+      tls: false,
     };
     config.plugins.push(
       new webpack.ProvidePlugin({
@@ -27,11 +31,11 @@ const nextConfig = {
           default:
             throw new Error(`Not found ${mod}`);
         }
-      }),
+      })
     );
     config.ignoreWarnings = [/Failed to parse source map/];
     return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

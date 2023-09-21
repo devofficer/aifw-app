@@ -8,16 +8,18 @@ interface ImageLoaderProps {
   idx: number;
 }
 
-const ImageLoader = ({url, idx}: ImageLoaderProps) => {
+const ImageLoader = ({ url, idx }: ImageLoaderProps) => {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     setLoaded(false);
-  }, [url])
+  }, [url]);
   return (
     <div className={styles.container}>
-      <div className={classNames(styles.loader, loaded ? styles.hidden : '')}></div>
+      <div
+        className={classNames(styles.loader, loaded ? styles.hidden : "")}
+      ></div>
       <Image
-        src={url}
+        src={`${process.env.NEXT_PUBLIC_BASE_URL}/${url}`}
         alt={`Generated ${idx}`}
         width={640}
         height={640}
@@ -25,7 +27,7 @@ const ImageLoader = ({url, idx}: ImageLoaderProps) => {
         onLoad={() => setLoaded(true)}
       />
     </div>
-  )
-}
+  );
+};
 
 export default ImageLoader;
