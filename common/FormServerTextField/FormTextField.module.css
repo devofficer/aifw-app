@@ -1,0 +1,18 @@
+.container {
+  @apply flex flex-col space-y-1;
+}
+
+.label {
+  @apply text-sm font-medium text-secondary;
+}
+
+.input {
+  @apply w-full;
+  @apply bg-transparent text-secondary;
+  @apply px-1 py-1;
+  @apply outline-none;
+  @apply border-l-0 border-t-0 border-r-0;
+  @apply border-b-2 border-primary-transparent focus:border-primary;
+  @apply placeholder:text-gray-400;
+  @apply focus:ring-0;
+}

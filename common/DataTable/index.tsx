@@ -41,7 +41,7 @@ export default function DataTable() {
   const supabase = createClientComponentClient();
 
   const checkbox = useRef<any>();
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
   const [checked, setChecked] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   const [items, setItems] = useState<ITableItem[]>([]);

@@ -86,8 +86,18 @@ const FormView = () => {
     await handleSubmitAsync(data);
   };
 
+  const handleCreateUser = async () => {
+    const { data, error } = await supabase.auth.admin.createUser({
+      email: "serviusapolum@gmail.com",
+      password: "password",
+      user_metadata: { name: "Yanko" },
+    });
+    console.log(data);
+  };
+
   return (
     <Section>
+      <button onClick={handleCreateUser}>Create User</button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrapper}>
           <h3 className={styles.title}>Upload Form</h3>

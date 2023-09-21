@@ -2,6 +2,7 @@
   @apply flex flex-col justify-center gap-2;
   @apply w-full sm:max-w-md;
   @apply px-8 mx-auto;
+  @apply py-20;
 }
 
 .form {
