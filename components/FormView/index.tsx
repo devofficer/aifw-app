@@ -97,7 +97,6 @@ const FormView = () => {
 
   return (
     <Section>
-      <button onClick={handleCreateUser}>Create User</button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrapper}>
           <h3 className={styles.title}>Upload Form</h3>
