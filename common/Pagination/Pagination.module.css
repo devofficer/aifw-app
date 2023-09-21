@@ -1,0 +1,116 @@
+.outerDiv {
+  @apply flex;
+  @apply items-center;
+  @apply justify-between;
+  @apply border-t;
+  @apply border-gray-200;
+  @apply bg-white;
+  @apply px-4;
+  @apply py-3;
+  @apply sm:px-6;
+}
+
+.innerDiv1 {
+  @apply flex;
+  @apply sm:flex-1;
+  @apply sm:items-center;
+  @apply sm:justify-between;
+}
+
+.text {
+  @apply text-sm;
+  @apply text-gray-700;
+}
+
+.fontMedium {
+  @apply font-medium;
+}
+
+.paginationNav {
+  @apply isolate;
+  @apply inline-flex;
+  @apply -space-x-px;
+  @apply rounded-md;
+  @apply shadow-sm;
+}
+
+.actionButton {
+  @apply relative;
+  @apply inline-flex;
+  @apply items-center;
+  @apply px-2;
+  @apply py-2;
+  @apply text-primary-500;
+  @apply ring-1;
+  @apply ring-inset;
+  @apply ring-primary-500;
+  @apply hover:text-primary-600;
+  @apply focus:z-20;
+  @apply focus:outline-offset-0;
+}
+
+.disabled {
+  @apply text-gray-400;
+  @apply ring-gray-400;
+  @apply hover:text-gray-400;
+}
+
+.icon {
+  @apply h-5;
+  @apply w-5;
+}
+
+.currentPage {
+  @apply relative;
+  @apply z-10;
+  @apply inline-flex;
+  @apply items-center;
+  @apply bg-primary-600;
+  @apply px-4;
+  @apply py-2;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply text-black;
+  @apply focus:z-20;
+  @apply focus-visible:outline;
+  @apply focus-visible:outline-2;
+  @apply focus-visible:outline-offset-2;
+  @apply focus-visible:outline-primary-600;
+}
+
+.pageButton {
+  @apply relative;
+  @apply inline-flex;
+  @apply items-center;
+  @apply px-4;
+  @apply py-2;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply text-gray-900;
+  @apply ring-1;
+  @apply ring-inset;
+  @apply ring-gray-300;
+  @apply hover:bg-gray-50;
+  @apply focus:z-20;
+  @apply focus:outline-offset-0;
+}
+
+.hiddenMd {
+  @apply hidden;
+  @apply md:inline-flex;
+}
+
+.ellipsis {
+  @apply relative;
+  @apply inline-flex;
+  @apply items-center;
+  @apply px-4;
+  @apply py-2;
+  @apply text-sm;
+  @apply font-semibold;
+  @apply text-gray-700;
+  @apply ring-1;
+  @apply ring-inset;
+  @apply ring-gray-300;
+  @apply focus:outline-offset-0;
+}
