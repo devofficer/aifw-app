@@ -6,9 +6,9 @@ const Banner = () => {
     <div className={styles.banner}>
       <Image
         alt="banner"
-        src="/assets/banner.jpg"
-        width={1031}
-        height={413}
+        src="/assets/bg.png"
+        width={920}
+        height={1080}
         className={styles.img}
       />
     </div>

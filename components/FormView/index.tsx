@@ -12,7 +12,6 @@ import styles from "./FormView.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
-import { string } from "yup";
 
 export const dynamic = "force-dynamic";
 
@@ -96,7 +95,11 @@ const FormView = () => {
   };
 
   return (
-    <Section>
+    <section className={styles.container}>
+      <h1 className={styles.header}>WELCOME TO AIFW SEASON 2</h1>
+      <h1 className={styles.header}>
+        TO APPLY FILL THE APPLICATION FORM BELOW.
+      </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrapper}>
           <h3 className={styles.title}>Upload Form</h3>
@@ -159,7 +162,7 @@ const FormView = () => {
         closeOnClick
         theme="light"
       />
-    </Section>
+    </section>
   );
 };
 

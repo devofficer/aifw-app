@@ -1,7 +1,10 @@
 .banner {
   @apply relative;
+  filter: blur(2px);
 }
 
 .img {
-  @apply w-full;
+  @apply mx-auto;
+  @apply min-h-[1000px];
+  opacity: 0.3;
 }

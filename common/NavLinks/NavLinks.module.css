@@ -5,9 +5,9 @@
 .linkItem {
   @apply uppercase;
   @apply cursor-pointer;
-  @apply text-secondary hover:text-gray-300 active:text-gray-500;
+  @apply text-black hover:text-gray-900 active:text-gray-500;
 }
 
 .email {
-  @apply text-secondary hover:text-gray-300 active:text-gray-500;
+  @apply text-black hover:text-gray-900 active:text-gray-500;
 }

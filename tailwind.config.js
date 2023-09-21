@@ -8,7 +8,7 @@ module.exports = {
         "primary-600": "#B2EF03",
         "primary-500": "#A2DF03",
         "primary-transparent": "#B2EF03AA",
-        secondary: "#000000",
+        secondary: "#F0EDED",
         main: "#7c848c",
       },
       fontSize: {

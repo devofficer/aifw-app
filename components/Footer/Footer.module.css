@@ -9,13 +9,13 @@
 }
 
 .links > * {
-  @apply text-secondary;
+  @apply text-black;
 }
 
 .links > a {
-  @apply hover:text-gray-600;
+  @apply hover:text-gray-900;
 }
 
 .season {
-  @apply text-secondary;
+  @apply text-black;
 }

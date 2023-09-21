@@ -3,7 +3,7 @@
   @apply px-2 sm:px-6 md:px-14 py-3;
   @apply w-full;
   @apply z-50;
-  @apply bg-primary text-secondary;
+  @apply bg-primary text-black;
 }
 
 .links {

@@ -16,16 +16,16 @@
 }
 
 .success {
-  @apply text-white;
+  @apply text-black;
   @apply bg-green-500 hover:bg-green-600 active:bg-green-700;
 }
 
 .danger {
-  @apply text-white;
+  @apply text-black;
   @apply bg-red-500 hover:bg-red-600 active:bg-red-700;
 }
 
 .normal {
-  @apply text-secondary;
+  @apply text-black;
   @apply bg-primary hover:bg-primary-500 active:bg-primary-600;
 }
