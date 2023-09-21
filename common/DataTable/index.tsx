@@ -9,6 +9,7 @@ import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/20/solid";
 import Button from "../Button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Pagination from "../Pagination";
+import Loading from "../Loading";
 
 interface ITableHeader {
   label: string;
@@ -68,6 +69,7 @@ export default function DataTable() {
   }
 
   const loadItems = async () => {
+    setIsLoading(true);
     const { count } = await supabase
       .from("uploads")
       .select("*", { count: "exact" });
@@ -79,6 +81,7 @@ export default function DataTable() {
       .order("id", { ascending: false })
       .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
     if (items) setItems(items);
+    setIsLoading(false);
   };
 
   const updateItems = (data: ITableItem[]) => {
@@ -267,6 +270,7 @@ export default function DataTable() {
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}
       />
+      {isLoading && <Loading />}
     </div>
   );
 }

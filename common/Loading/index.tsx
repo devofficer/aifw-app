@@ -1,12 +1,13 @@
+import React from "react";
 import styles from "./Loading.module.css";
 
-const Loading = () => {
+export default function Loading() {
   return (
-    <div className={styles.container}>
-      <div className={styles.loading}></div>
-      <div className={styles.label}>Generating</div>
+    <div className={styles.graybox}>
+      <div className={styles.wrapper}>
+        <span className={styles.loading}></span>
+        <span className={styles.desc}>Loading</span>
+      </div>
     </div>
-  )
+  );
 }
-
-export default Loading;
