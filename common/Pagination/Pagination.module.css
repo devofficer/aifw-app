@@ -3,8 +3,8 @@
   @apply items-center;
   @apply justify-between;
   @apply border-t;
-  @apply border-gray-200;
-  @apply bg-white;
+  @apply border-gray-900;
+  @apply bg-black;
   @apply px-4;
   @apply py-3;
   @apply sm:px-6;
@@ -19,7 +19,7 @@
 
 .text {
   @apply text-sm;
-  @apply text-gray-700;
+  @apply text-gray-300;
 }
 
 .fontMedium {
@@ -86,11 +86,12 @@
   @apply py-2;
   @apply text-sm;
   @apply font-semibold;
-  @apply text-gray-900;
+  @apply bg-black;
+  @apply text-gray-300;
   @apply ring-1;
   @apply ring-inset;
-  @apply ring-gray-300;
-  @apply hover:bg-gray-50;
+  @apply ring-gray-700;
+  @apply hover:bg-gray-800;
   @apply focus:z-20;
   @apply focus:outline-offset-0;
 }

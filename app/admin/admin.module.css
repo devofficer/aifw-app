@@ -1,5 +1,5 @@
 .container {
-  @apply bg-white;
+  @apply bg-black;
   @apply mx-auto;
   @apply px-3 sm:px-6 md:px-14;
 }

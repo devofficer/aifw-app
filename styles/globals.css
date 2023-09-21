@@ -81,3 +81,7 @@ p {
 ::-webkit-scrollbar-thumb:hover {
   background: #c2ff04bb;
 }
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
