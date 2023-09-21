@@ -22,7 +22,7 @@ const headers: ITableHeader[] = [
   { label: "Name", dataIndex: "name" },
   { label: "Email", dataIndex: "email" },
   { label: "Country", dataIndex: "country" },
-  { label: "Age", dataIndex: "age" },
+  { label: "Birthdate", dataIndex: "birthdate" },
   { label: "Ai Tools", dataIndex: "aiTool" },
   { label: "Instagram", dataIndex: "instagram" },
 ];
@@ -32,10 +32,10 @@ interface ITableItem {
   name: string;
   email: string;
   country: string;
-  age: number;
   aiTool: string;
+  birthdate: string;
   instagram: string;
-  status: boolean;
+  status: number;
   images: string[];
 }
 
@@ -65,7 +65,9 @@ export default function DataTable() {
   }, [selectedItems]);
 
   function toggleAll() {
-    setSelectedItems(checked || indeterminate ? [] : items);
+    setSelectedItems(
+      checked || indeterminate ? [] : items.filter((item) => item.status === 0)
+    );
     setChecked(!checked && !indeterminate);
     setIndeterminate(false);
   }
@@ -80,7 +82,7 @@ export default function DataTable() {
     const { data: items, error } = await supabase
       .from("uploads")
       .select("*")
-      .order("id", { ascending: false })
+      .order("status", { ascending: false })
       .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
     if (items) setItems(items);
     setIsLoading(false);
@@ -95,11 +97,11 @@ export default function DataTable() {
     setItems(newItems);
   };
 
-  const handleAllow = async (selectedIds: string[], status: boolean) => {
+  const handleAllow = async (selectedIds: string[], status: number) => {
     const { data, error } = await supabase
       .from("uploads")
       .update({ status: status })
-      .in("id", selectedIds)
+      .in("email", selectedIds)
       .select("*");
     if (!error) {
       updateItems(data);
@@ -110,8 +112,8 @@ export default function DataTable() {
   };
 
   const handleAllowBulk = async (status: boolean) => {
-    const selectedIds = selectedItems.map((item) => item.id);
-    await handleAllow(selectedIds, status);
+    const selectedIds = selectedItems.map((item) => item.email);
+    await handleAllow(selectedIds, status ? 1 : 2);
     setSelectedItems([]);
   };
 
@@ -195,7 +197,7 @@ export default function DataTable() {
                     {headers.map((header, idx) => {
                       return (
                         <th
-                          key={header.label}
+                          key={idx}
                           scope="col"
                           className={styles.tableHeader}
                         >
@@ -272,7 +274,22 @@ export default function DataTable() {
                       })}
                       <td className={styles.cell}>
                         <div className={styles.actions}>
-                          {item.status ? (
+                          {item.status === 0 ? (
+                            <>
+                              <Button
+                                size="sm"
+                                variant={"danger"}
+                                text={"Deny"}
+                                handler={() => handleAllow([item.email], 2)}
+                              />
+                              <Button
+                                size="sm"
+                                variant={"success"}
+                                text={"Approve"}
+                                handler={() => handleAllow([item.email], 1)}
+                              />
+                            </>
+                          ) : item.status === 1 ? (
                             <span className={styles.approvedItem}>
                               <CheckCircleIcon className={styles.icon} />
                               <span>Approved</span>
@@ -283,12 +300,6 @@ export default function DataTable() {
                               <span>Denied</span>
                             </span>
                           )}
-                          <Button
-                            size="sm"
-                            variant={item.status ? "danger" : "success"}
-                            text={item.status ? "Deny" : "Approve"}
-                            handler={() => handleAllow([item.id], !item.status)}
-                          />
                         </div>
                       </td>
                     </tr>

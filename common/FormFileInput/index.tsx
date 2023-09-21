@@ -31,7 +31,8 @@ const FormFileInput = ({ name, setValue }: IFormFileInputProps) => {
     <div>
       <div onClick={handleClick} className={styles.wrapper}>
         <CloudArrowUpIcon className={styles.icon} />
-        <span>Choose some files to upload</span>
+        <span>Upload your 5 Images</span>
+        <span>Max 2MB</span>
         <input
           multiple
           name={name}

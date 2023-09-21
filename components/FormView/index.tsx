@@ -65,7 +65,6 @@ const FormView = () => {
         birthdate: formData.birthdate,
         aiTool: formData.aiTools,
         instagram: formData.instagram,
-        age: formData.age,
         images: uploadedNames,
       })
       .select();
@@ -78,6 +77,14 @@ const FormView = () => {
   };
 
   const onSubmit = async (data: any) => {
+    if (data.country === "Choose") {
+      toast.error("You have to select country");
+      return;
+    }
+    if (data.aiTools === "Choose") {
+      toast.error("You have to select AI Tool");
+      return;
+    }
     if (data.files.length === 0) {
       toast.error("You have to add at least 1 file.");
       return;
@@ -118,9 +125,9 @@ const FormView = () => {
             setValue={setValue}
           />
           <FormTextField
-            name="age"
-            label="Age"
-            type="number"
+            name="birthdate"
+            label="BirthDate"
+            type="date"
             placeholder=""
             setValue={setValue}
           />
@@ -130,13 +137,7 @@ const FormView = () => {
             items={countryNames}
             setValue={setValue}
           />
-          <FormTextField
-            name="birthdate"
-            label="BirthDate"
-            type="date"
-            placeholder=""
-            setValue={setValue}
-          />
+
           <DropDown
             name="aiTools"
             label="AI tools"
