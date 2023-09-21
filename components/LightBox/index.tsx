@@ -8,22 +8,29 @@ import React, {
 import ImageLoader from "@/common/ImageLoader";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectFade, Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import styles from "./LightBox.module.css";
 
 interface LightBoxProps {
-  url: string;
-  handleClose: Dispatch<SetStateAction<string>>;
+  urls: string[];
+  handleClose: Dispatch<SetStateAction<string[]>>;
 }
 
-const LightBox = ({ url, handleClose }: LightBoxProps) => {
+const LightBox = ({ urls, handleClose }: LightBoxProps) => {
   const lightBoxRef = useRef<HTMLDivElement>(null);
   const handleKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Escape") handleClose("");
+    if (e.key === "Escape") handleClose([]);
   };
 
   useEffect(() => {
-    if (url !== "" && lightBoxRef.current) lightBoxRef.current.focus();
-  }, [url]);
+    if (urls.length > 0 && lightBoxRef.current) lightBoxRef.current.focus();
+  }, [urls]);
 
   return (
     <div
@@ -31,16 +38,34 @@ const LightBox = ({ url, handleClose }: LightBoxProps) => {
       ref={lightBoxRef}
       className={classNames(
         styles.container,
-        url === "" ? styles.invisible : ""
+        urls.length === 0 ? styles.invisible : ""
       )}
-      onClick={() => handleClose("")}
+      onClick={() => handleClose([])}
       onKeyUp={handleKeyUp}
     >
-      <div className={styles.close} onClick={() => handleClose("")}>
+      <div className={styles.close} onClick={() => handleClose([])}>
         <XMarkIcon className={styles.icon} aria-hidden="true" />
       </div>
-      <div onClick={(e) => e.stopPropagation()}>
-        {url !== "" && <ImageLoader url={url} idx={0} />}
+      <div
+        className={styles.swiperWrapper}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Swiper
+          className={styles.swiper}
+          modules={[EffectFade, Navigation, Pagination]}
+          effect={"fade"}
+          loop={true}
+          navigation={true}
+          pagination={{ clickable: true }}
+        >
+          {urls.map((url, idx) => {
+            return (
+              <SwiperSlide key={idx}>
+                <ImageLoader url={url} idx={idx} />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </div>
     </div>
   );

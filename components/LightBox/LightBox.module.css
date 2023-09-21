@@ -43,3 +43,11 @@
 .content {
   @apply max-w-min;
 }
+
+.swiperWrapper {
+  @apply max-w-xl w-full;
+}
+
+.swiper {
+  @apply w-full;
+}

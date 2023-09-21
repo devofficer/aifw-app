@@ -38,12 +38,12 @@ const FormView = () => {
 
   const handleSubmitAsync = async (formData: IFormData) => {
     setIsLoading(true);
-    const promises = formData.files.map(async (file) => {
+    const promises = formData.files.map(async (file, idx) => {
       const { data, error } = await supabase.storage
         .from("images")
         .upload(
           `${formData.email}_${Date.now()}_${file.name}`,
-          formData.files[0],
+          formData.files[idx],
           {
             cacheControl: "3600",
             upsert: false,

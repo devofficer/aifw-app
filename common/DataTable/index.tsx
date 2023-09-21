@@ -48,7 +48,7 @@ export default function DataTable() {
   const [indeterminate, setIndeterminate] = useState(false);
   const [items, setItems] = useState<ITableItem[]>([]);
   const [selectedItems, setSelectedItems] = useState<ITableItem[]>([]);
-  const [selectedUrl, setSelectedUrl] = useState<string>("");
+  const [selectedUrls, setSelectedUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [totalCount, setTotalCount] = useState(0);
@@ -243,11 +243,14 @@ export default function DataTable() {
                               {item[header.dataIndex as keyof ITableItem]}
                               <div className={styles.imageContainer}>
                                 {item.images.map((url, idx) => {
+                                  console.log(url);
                                   return (
                                     <div
                                       key={idx}
                                       className={styles.image}
-                                      onClick={() => setSelectedUrl(url)}
+                                      onClick={() =>
+                                        setSelectedUrls(item.images)
+                                      }
                                     >
                                       <ImageLoader
                                         key={idx}
@@ -295,7 +298,7 @@ export default function DataTable() {
             </div>
           </div>
         </div>
-        <LightBox url={selectedUrl} handleClose={setSelectedUrl} />
+        <LightBox urls={selectedUrls} handleClose={setSelectedUrls} />
       </div>
       <Pagination
         totalItemCount={totalCount}
