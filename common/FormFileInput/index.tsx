@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useRef, useState } from "react";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./FormFileInput.module.css";
-import Image from "next/image";
 
-const FormFileInput = () => {
+interface IFormFileInputProps {
+  name: string;
+  setValue: any;
+}
+
+const FormFileInput = ({ name, setValue }: IFormFileInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
@@ -16,7 +20,12 @@ const FormFileInput = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files ?? []);
     setSelectedFiles(files);
+    setValue(name, files);
   };
+
+  useEffect(() => {
+    setValue(name, []);
+  }, []);
 
   return (
     <div>
@@ -25,8 +34,10 @@ const FormFileInput = () => {
         <span>Choose some files to upload</span>
         <input
           multiple
+          name={name}
           type="file"
           ref={ref}
+          accept="image/*"
           className={styles.fileInput}
           onChange={handleChange}
         />

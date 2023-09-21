@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import clxs from "classnames";
@@ -12,12 +12,18 @@ interface ItemType {
 }
 
 interface DropDownProps {
+  name: string;
   label: string;
   items: ItemType[];
+  setValue: any;
 }
 
-const DropDown = ({ label, items }: DropDownProps) => {
+const DropDown = ({ name, label, items, setValue }: DropDownProps) => {
   const [selected, setSelected] = useState(items[0]);
+
+  useEffect(() => {
+    setValue(name, selected.name);
+  }, [selected]);
 
   return (
     <div>
