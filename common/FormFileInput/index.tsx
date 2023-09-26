@@ -20,7 +20,8 @@ const FormFileInput = ({ name, setValue }: IFormFileInputProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files ?? []).slice(0, 5);
-    setSelectedFiles(files);
+    const MaxSizeInBytes = 2 * 1024 * 1024; // 2MB
+    setSelectedFiles(files.filter((file) => file.size < MaxSizeInBytes));
     setValue(name, files);
   };
 

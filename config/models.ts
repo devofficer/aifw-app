@@ -13,10 +13,12 @@ export const models = [
 
 export const countryNames = [
   { id: 0, name: "Choose" },
-  ...countries.all.map((country, idx) => {
-    return {
-      id: idx + 1,
-      name: country.name,
-    };
-  }),
+  ...countries.all
+    .map((country, idx) => {
+      return {
+        id: idx + 1,
+        name: country.name,
+      };
+    })
+    .sort((a, b) => (a.name < b.name ? -1 : 1)),
 ];

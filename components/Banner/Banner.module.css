@@ -1,10 +1,14 @@
 .banner {
-  @apply relative;
+  @apply absolute;
+  @apply w-full h-full;
+  background-image: url("/assets/bg.png");
+  background-size: cover;
+  opacity: 0.3;
   filter: blur(2px);
 }
 
 .img {
-  @apply mx-auto;
+  @apply w-full;
   @apply min-h-[1000px];
   opacity: 0.3;
 }

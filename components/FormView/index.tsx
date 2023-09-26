@@ -12,6 +12,7 @@ import styles from "./FormView.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -98,7 +99,13 @@ const FormView = () => {
     <section className={styles.container}>
       {pageStep === 0 && (
         <>
-          <h1 className={styles.header}>WELCOME TO AIFW SEASON 2</h1>
+          <Image
+            alt="logo"
+            src="/assets/logo.png"
+            width={299}
+            height={209}
+            className={styles.logo}
+          />
           <h1 className={styles.header}>
             TO APPLY FILL THE APPLICATION FORM BELOW.
           </h1>
@@ -152,6 +159,7 @@ const FormView = () => {
               </div>
             </div>
           </form>
+          <h1 className={styles.header}>Entry Ends: 30d:22h:01m:12s</h1>
         </>
       )}
       {pageStep === 1 && (
