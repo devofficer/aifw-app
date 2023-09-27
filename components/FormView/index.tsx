@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
 import Image from "next/image";
+import { sendEmail } from "@/utils/email";
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +68,7 @@ const FormView = () => {
         country: formData.country,
         birthdate: formData.birthdate,
         aiTool: formData.aiTools,
-        instagram: formData.instagram,
+        instagram: `https://www.instagram.com/${formData.instagram}/`,
         images: uploadedNames,
       })
       .select();
@@ -75,11 +76,34 @@ const FormView = () => {
       setPageStep(2);
     } else if (data) {
       setPageStep(1);
+
+      sendEmail(process.env.NEXT_PUBLIC_EMAIL_JS_UPLOAD_TEMPLATE_ID as string, {
+        to_email: formData.email,
+      }).then(
+        (result: any) => {
+          // toast.info(`Email sent to ${item.name}:${item.email}`);
+        },
+        (error: any) => {
+          // show the user an error
+          // toast.error(`Email is not sent to ${item.name}:${item.email}`);
+          console.log(error);
+        }
+      );
     }
     setIsLoading(false);
   };
 
+  const isValidEmail = (email: string): boolean => {
+    const emailRegex: RegExp =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
   const onSubmit = async (data: any) => {
+    if (!isValidEmail(data.email)) {
+      toast.error("You have to use valid email");
+      return;
+    }
     if (data.country === "Choose") {
       toast.error("You have to select country");
       return;
@@ -88,8 +112,8 @@ const FormView = () => {
       toast.error("You have to select AI Tool");
       return;
     }
-    if (data.files.length === 0) {
-      toast.error("You have to add at least 1 file.");
+    if (data.files.length !== 5) {
+      toast.error("You have to select 5 images.");
       return;
     }
     await handleSubmitAsync(data);
@@ -150,7 +174,7 @@ const FormView = () => {
                 name="instagram"
                 label="Instagram"
                 type="text"
-                placeholder="https://instagram.com/user"
+                placeholder="instagramId"
                 setValue={setValue}
               />
               <FormFileInput name="files" setValue={setValue} />
@@ -163,10 +187,14 @@ const FormView = () => {
         </>
       )}
       {pageStep === 1 && (
-        <h1 className={styles.header}>Your Form is submitted!</h1>
+        <div className={styles.resultWrapper}>
+          <h1 className={styles.header}>Your Form is submitted!</h1>
+        </div>
       )}
       {pageStep === 2 && (
-        <h1 className={styles.error}>Your Form is not submitted!</h1>
+        <div className={styles.resultWrapper}>
+          <h1 className={styles.error}>Your Form is not submitted!</h1>
+        </div>
       )}
 
       <ToastContainer

@@ -29,6 +29,7 @@ const FormFileInput = ({ name, setValue }: IFormFileInputProps) => {
     const newSelectedFiles = [...selectedFiles];
     newSelectedFiles.splice(idx, 1);
     setSelectedFiles(newSelectedFiles);
+    setValue(name, newSelectedFiles);
   };
 
   useEffect(() => {

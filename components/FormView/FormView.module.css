@@ -1,8 +1,8 @@
 .container {
-  @apply absolute;
-  @apply top-0 left-0;
+  @apply relative;
   @apply w-full h-full;
   @apply flex flex-col;
+  @apply justify-center;
   @apply px-4 py-10;
   @apply space-y-4;
 }
@@ -11,8 +11,8 @@
   @apply mt-10;
   @apply max-w-sm sm:max-w-lg mx-auto;
   @apply border rounded-md border-secondary;
-  @apply px-6 py-3;
-  @apply space-y-3;
+  @apply px-6 md:px-16 py-3;
+  @apply space-y-6;
 }
 
 .title {
@@ -46,4 +46,10 @@
   @apply w-36 md:w-52;
   @apply mx-auto;
   @apply mb-6;
+}
+
+.resultWrapper {
+  @apply min-h-[1100px];
+  @apply flex flex-col;
+  @apply justify-center;
 }

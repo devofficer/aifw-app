@@ -1,22 +1,32 @@
 "use client";
 
 import LightBox from "@/components/LightBox";
-import ImageLoader from "../ImageLoader";
-import styles from "./DataTable.module.css";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { sendEmail } from "@/utils/email";
 import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/20/solid";
-import Button from "../Button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import Pagination from "../Pagination";
-import Loading from "../Loading";
-import emailjs from "@emailjs/browser";
+import axios, { AxiosRequestConfig } from "axios";
+import JSZip from "jszip";
+import Link from "next/link";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import CsvDownloader from "react-csv-downloader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
+import Button from "../Button";
+import ImageLoader from "../ImageLoader";
+import Loading from "../Loading";
+import Pagination from "../Pagination";
+import styles from "./DataTable.module.css";
+
+import { saveAs } from "file-saver";
 
 interface ITableHeader {
   label: string;
   dataIndex: string;
+}
+
+interface ITableColumn {
+  id: string;
+  displayName: string;
 }
 
 const headers: ITableHeader[] = [
@@ -26,6 +36,15 @@ const headers: ITableHeader[] = [
   { label: "Birthdate", dataIndex: "birthdate" },
   { label: "Ai Tools", dataIndex: "aiTool" },
   { label: "Instagram", dataIndex: "instagram" },
+];
+
+const columns: ITableColumn[] = [
+  { displayName: "Name", id: "name" },
+  { displayName: "Email", id: "email" },
+  { displayName: "Country", id: "country" },
+  { displayName: "Birthdate", id: "birthdate" },
+  { displayName: "Ai Tools", id: "aiTool" },
+  { displayName: "Instagram", id: "instagram" },
 ];
 
 interface ITableItem {
@@ -66,9 +85,7 @@ export default function DataTable() {
   }, [selectedItems]);
 
   function toggleAll() {
-    setSelectedItems(
-      checked || indeterminate ? [] : items.filter((item) => item.status === 0)
-    );
+    setSelectedItems(checked || indeterminate ? [] : items);
     setChecked(!checked && !indeterminate);
     setIndeterminate(false);
   }
@@ -109,43 +126,63 @@ export default function DataTable() {
     if (!error) {
       updateItems(data);
       data.forEach((item) => {
-        handleSendingEmails(item.name, item.email, item.status);
+        sendEmail(
+          process.env.NEXT_PUBLIC_EMAIL_JS_STATUS_TEMPLATE_ID as string,
+          { to_name: item.name, to_email: item.email, status: item.status }
+        ).then(
+          (result: any) => {
+            toast.info(`Email sent to ${item.name}:${item.email}`);
+          },
+          (error: any) => {
+            // show the user an error
+            toast.error(`Email is not sent to ${item.name}:${item.email}`);
+            console.log(error);
+          }
+        );
       });
     }
   };
 
   const handleAllowBulk = async (status: boolean) => {
-    const selectedIds = selectedItems.map((item) => item.email);
+    const selectedIds = selectedItems
+      .filter((item) => item.status === 0)
+      .map((item) => item.email);
     await handleAllow(selectedIds, status ? 1 : 2);
     setSelectedItems([]);
   };
 
-  const handleSendingEmails = async (
-    name: string,
-    email: string,
-    status: boolean
-  ) => {
-    emailjs
-      .send(
-        process.env.NEXT_PUBLIC_EMAIL_JS_SERVICE_ID as string,
-        process.env.NEXT_PUBLIC_EMAIL_JS_TEMPLATE_ID as string,
-        {
-          to_name: name,
-          to_email: email,
-          status: status ? "Approved" : "Denied",
-        },
-        process.env.NEXT_PUBLIC_EMAIL_JS_PUBLIC_KEY
+  const handleDownload = () => {
+    const images = selectedItems.reduce<string[]>((prev, item) => {
+      console.log(prev);
+      return [...prev, ...item.images];
+    }, []);
+
+    const zip = new JSZip();
+    const imgFolder = zip.folder("images");
+    const promises: any[] = [];
+    let ext: string = "";
+    images.map((url, i) =>
+      promises.push(
+        axios({
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/${url}`,
+          responseType: "blob",
+          crossDomain: true,
+        } as AxiosRequestConfig)
+          .then((response) => {
+            ext = response.headers["content-type"].split("/")[1];
+            return response.data;
+          })
+          .then((data) => {
+            return imgFolder?.file(`images-${i}.${ext}`, data);
+          })
       )
-      .then(
-        (result: any) => {
-          toast.info(`Email sent to ${name}:${email}`);
-        },
-        (error: any) => {
-          // show the user an error
-          toast.error(`Email is not sent to ${name}:${email}`);
-          console.log(error);
-        }
-      );
+    );
+    Promise.all(promises).then(() =>
+      zip.generateAsync({ type: "blob" }).then(function (content) {
+        // see FileSaver.js
+        saveAs(content, "document.zip");
+      })
+    );
   };
 
   useEffect(() => {
@@ -182,6 +219,24 @@ export default function DataTable() {
                     onClick={() => handleAllowBulk(false)}
                   >
                     Bulk Deny
+                  </button>
+                  <CsvDownloader
+                    filename={`data_page_${currentPage}`}
+                    extension=".csv"
+                    columns={columns}
+                    datas={items as any}
+                  >
+                    <button type="button" className={styles.button}>
+                      Export as CSV
+                    </button>
+                  </CsvDownloader>
+
+                  <button
+                    type="button"
+                    className={styles.button}
+                    onClick={handleDownload}
+                  >
+                    Export Images
                   </button>
                 </div>
               )}
@@ -248,7 +303,6 @@ export default function DataTable() {
                               {item[header.dataIndex as keyof ITableItem]}
                               <div className={styles.imageContainer}>
                                 {item.images.map((url, idx) => {
-                                  console.log(url);
                                   return (
                                     <div
                                       key={idx}
@@ -279,6 +333,7 @@ export default function DataTable() {
                                     header.dataIndex as keyof ITableItem
                                   ] as string
                                 }
+                                target="_blank"
                               >
                                 {item[header.dataIndex as keyof ITableItem]}
                               </Link>

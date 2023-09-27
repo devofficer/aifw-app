@@ -1,6 +1,6 @@
 .container {
   @apply flex justify-between items-center;
-  @apply px-2 sm:px-6 md:px-14 py-3;
+  @apply px-0 py-0;
   @apply w-full;
   @apply z-50;
   @apply bg-primary text-black;

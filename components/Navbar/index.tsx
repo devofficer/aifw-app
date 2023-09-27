@@ -1,17 +1,22 @@
-import NavLinks from "@/common/NavLinks";
-
 import styles from "./Navbar.module.css";
-import Link from "next/link";
+
+import Marquee from "react-fast-marquee";
 
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      <div>
+      <Marquee>
+        ROLLING ANNOUNCEMENT BAR | ROLLING ANNOUNCEMENT BAR | ROLLING
+        ANNOUNCEMENT BAR | ROLLING ANNOUNCEMENT BAR | ROLLING ANNOUNCEMENT BAR |
+        ROLLING ANNOUNCEMENT BAR | ROLLING ANNOUNCEMENT BAR | ROLLING
+        ANNOUNCEMENT BAR | ROLLING ANNOUNCEMENT BAR | ROLLING ANNOUNCEMENT BAR
+      </Marquee>
+      {/* <div>
         <Link href="/">AIFW</Link>
       </div>
       <div className={styles.links}>
         <NavLinks />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -3,4 +3,5 @@
   @apply bg-black;
   @apply mx-auto;
   @apply min-h-[1100px];
+  @apply h-full;
 }
